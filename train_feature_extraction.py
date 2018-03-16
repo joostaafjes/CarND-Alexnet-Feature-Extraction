@@ -54,7 +54,6 @@ def normalize(image_data):
     return min_target + ( ( (image_data - min)*(max_target - min_target) )/( max - min ) )
 
 X_train = normalize(X_train)
-X_test = normalize(X_test)
 X_valid = normalize(X_valid)
 
 # Define placeholders and resize operation.

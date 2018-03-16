@@ -16,6 +16,8 @@ with open('./train.p', 'rb') as f:
 
 X_train, X_valid, y_train, y_valid = train_test_split(data['features'], data['labels'], test_size=0.33, random_state=0)
 
+
+
 #
 # overview dataset
 #
@@ -52,9 +54,6 @@ def normalize(image_data):
     min = 0
     max = 255
     return min_target + ( ( (image_data - min)*(max_target - min_target) )/( max - min ) )
-
-X_train = normalize(X_train)
-X_valid = normalize(X_valid)
 
 # Define placeholders and resize operation.
 x = tf.placeholder(tf.float32, (None, 32, 32, 3))
@@ -118,9 +117,6 @@ with tf.Session() as sess:
     sess.run(tf.global_variables_initializer())
     num_examples = len(X_train)
 
-    chart_training_accuracy = []
-    chart_validation_accuracy = []
-
     print("Training...")
     print()
     for i in range(EPOCHS):
@@ -130,17 +126,11 @@ with tf.Session() as sess:
             end = offset + BATCH_SIZE
             batch_x, batch_y = X_train[offset:end], y_train[offset:end]
             sess.run(training_operation, feed_dict={x: batch_x, y: batch_y})
-        elapsed_time = datetime.datetime.now() - start_time
 
-        training_accuracy = evaluate(X_train, y_train)
         validation_accuracy = evaluate(X_valid, y_valid)
-        print("EPOCH {} in {} seconds ...".format(i + 1, elapsed_time.seconds))
-        print("Training Accuracy = {:.3f}".format(training_accuracy))
+        print("EPOCH {} in {} seconds ...".format(i + 1, (datetime.datetime.now() - start_time).seconds))
         print("Validation Accuracy = {:.3f}".format(validation_accuracy))
         print()
-
-        chart_training_accuracy.append(training_accuracy)
-        chart_validation_accuracy.append(validation_accuracy)
 
     saver.save(sess, './lenet')
     print("Model saved")

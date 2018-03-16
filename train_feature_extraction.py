@@ -131,7 +131,6 @@ with tf.Session() as sess:
             end = offset + BATCH_SIZE
             batch_x, batch_y = X_train[offset:end], y_train[offset:end]
             sess.run(training_operation, feed_dict={x: batch_x, y: batch_y})
-            print('finished offset %d' % offset)
         elapsed_time = datetime.datetime.now() - start_time
 
         training_accuracy = evaluate(X_train, y_train)

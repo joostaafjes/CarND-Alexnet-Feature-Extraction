@@ -39,22 +39,6 @@ print("Number of validation examples =", n_validation)
 print("Image data shape =", image_shape)
 print("Number of classes =", nb_classes)
 
-#
-# Normalize
-#
-def normalize(image_data):
-    """
-    Normalize the image data with Min-Max scaling
-    :param image_data: The image data to be normalized
-    :return: Normalized image data
-    """
-    #min_target = -1.0
-    min_target = 0.0
-    max_target = 1.0
-    min = 0
-    max = 255
-    return min_target + ( ( (image_data - min)*(max_target - min_target) )/( max - min ) )
-
 # Define placeholders and resize operation.
 x = tf.placeholder(tf.float32, (None, 32, 32, 3))
 resized = tf.image.resize_images(x, (227, 227))
@@ -73,7 +57,7 @@ fc7 = tf.stop_gradient(fc7)
 shape = (fc7.get_shape().as_list()[-1], nb_classes)  # use this shape for the weight matrix
 
 # SOLUTION: Layer 8: Fully Connected. Input = 4096. Output = nb_classes(43).
-fc8W  = tf.Variable(tf.truncated_normal(shape=(shape[0], shape[1]), mean = 0, stddev = 0.1))
+fc8W  = tf.Variable(tf.truncated_normal(shape, mean = 0, stddev = 0.01))
 fc8b  = tf.Variable(tf.zeros(nb_classes))
 
 logits = tf.matmul(fc7, fc8W) + fc8b
@@ -83,12 +67,12 @@ EPOCHS = 10
 BATCH_SIZE = 128
 
 # Training pipeline
-rate = 0.001
+# rate = 0.001
 
 cross_entropy = tf.nn.softmax_cross_entropy_with_logits(labels=one_hot_y, logits=logits)
 loss_operation = tf.reduce_mean(cross_entropy)
-optimizer = tf.train.AdamOptimizer(learning_rate = rate)
-training_operation = optimizer.minimize(loss_operation)
+optimizer = tf.train.AdamOptimizer()
+training_operation = optimizer.minimize(loss_operation, var_list=[fc8W, fc8b])
 
 # Evaluate
 correct_prediction = tf.equal(tf.argmax(logits, 1), tf.argmax(one_hot_y, 1))

@@ -10,8 +10,9 @@ import datetime
 from scipy.misc import imread
 from caffe_classes import class_names
 
+sign_names = pd.read_csv('signnames.csv')
 nb_classes = 43
-EPOCHS = 1
+EPOCHS = 10
 BATCH_SIZE = 128
 
 # Load traffic signs data.
@@ -122,7 +123,7 @@ for input_im_ind in range(output.shape[0]):
     inds = np.argsort(output)[input_im_ind, :]
     print("Image", input_im_ind)
     for i in range(5):
-        print("%s: %.3f" % (class_names[inds[-1 - i]], output[input_im_ind, inds[-1 - i]]))
+        print("%s: %.3f" % (sign_names.ix[inds[-1 - i]][1], output[input_im_ind, inds[-1 - i]]))
     print()
 
 print("Time: %.3f seconds" % (time.time() - t))

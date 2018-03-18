@@ -86,7 +86,7 @@ with tf.Session() as sess:
     for i in range(EPOCHS):
         start_time = datetime.datetime.now()
         X_train, y_train = shuffle(X_train, y_train)
-        for offset in range(0, int(num_examples / 100), BATCH_SIZE):
+        for offset in range(0, int(num_examples), BATCH_SIZE):
             end = offset + BATCH_SIZE
             batch_x, batch_y = X_train[offset:end], y_train[offset:end]
             sess.run(training_operation, feed_dict={x: batch_x, y: batch_y})

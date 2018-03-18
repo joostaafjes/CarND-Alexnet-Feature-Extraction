@@ -1,0 +1,59 @@
+I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:937] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:885] Found device 0 with properties:
+name: GRID K520
+major: 3 minor: 0 memoryClockRate (GHz) 0.797
+pciBusID 0000:00:03.0
+Total memory: 3.94GiB
+Free memory: 3.91GiB
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:906] DMA: 0
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:916] 0:   Y
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: GRID K520, pci bus id: 0000:00:03.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: GRID K520, pci bus id: 0000:00:03.0)
+Training...
+
+EPOCH 1 in 110 seconds ...
+Validation Accuracy = 0.868
+
+EPOCH 2 in 107 seconds ...
+Validation Accuracy = 0.910
+
+EPOCH 3 in 107 seconds ...
+Validation Accuracy = 0.941
+
+EPOCH 4 in 107 seconds ...
+Validation Accuracy = 0.947
+
+EPOCH 5 in 107 seconds ...
+Validation Accuracy = 0.954
+
+EPOCH 6 in 107 seconds ...
+Validation Accuracy = 0.953
+
+EPOCH 7 in 107 seconds ...
+Validation Accuracy = 0.959
+
+EPOCH 8 in 107 seconds ...
+Validation Accuracy = 0.966
+
+EPOCH 9 in 107 seconds ...
+Validation Accuracy = 0.963
+
+EPOCH 10 in 107 seconds ...
+Validation Accuracy = 0.967
+
+Model saved
+Image 0
+End of all speed and passing limits: 0.052
+End of no passing by vechiles over 3.5 metric tons: 0.047
+Children crossing: 0.045
+Double curve: 0.040
+Traffic signals: 0.039
+
+Image 1
+Double curve: 0.052
+End of no passing: 0.052
+Children crossing: 0.050
+Priority road: 0.046
+Stop: 0.045
+
+Time: 0.102 seconds

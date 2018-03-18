@@ -10,40 +10,20 @@ import datetime
 from scipy.misc import imread
 from caffe_classes import class_names
 
+nb_classes = 43
+EPOCHS = 1
+BATCH_SIZE = 128
+
 # Load traffic signs data.
 with open('./train.p', 'rb') as f:
     data = pickle.load(f)
 
 X_train, X_valid, y_train, y_valid = train_test_split(data['features'], data['labels'], test_size=0.33, random_state=0)
 
-
-
-#
-# overview dataset
-#
-# Number of training examples
-n_train = np.shape(y_train)[0]
-
-# Number of validation examples
-n_validation = np.shape(y_valid)[0]
-
-# What's the shape of an traffic sign image?
-image_shape = X_train[0].shape
-
-# How many unique classes/labels there are in the dataset.
-nb_classes = np.unique(y_train).size
-
-
-print("Number of training examples =", n_train)
-print("Number of validation examples =", n_validation)
-print("Image data shape =", image_shape)
-print("Number of classes =", nb_classes)
-
 # Define placeholders and resize operation.
 x = tf.placeholder(tf.float32, (None, 32, 32, 3))
-resized = tf.image.resize_images(x, (227, 227))
-
 y = tf.placeholder(tf.int32, (None))
+resized = tf.image.resize_images(x, (227, 227))
 one_hot_y = tf.one_hot(y, nb_classes)
 
 # pass placeholder as first argument to `AlexNet`.
@@ -60,15 +40,15 @@ shape = (fc7.get_shape().as_list()[-1], nb_classes)  # use this shape for the we
 fc8W  = tf.Variable(tf.truncated_normal(shape, mean = 0, stddev = 0.01))
 fc8b  = tf.Variable(tf.zeros(nb_classes))
 
+# ***1***
 logits = tf.matmul(fc7, fc8W) + fc8b
 probs = tf.nn.softmax(logits)
 
-EPOCHS = 10
-BATCH_SIZE = 128
 
 # Training pipeline
 # rate = 0.001
 
+# ***2*** sparse vs ...
 cross_entropy = tf.nn.softmax_cross_entropy_with_logits(labels=one_hot_y, logits=logits)
 loss_operation = tf.reduce_mean(cross_entropy)
 optimizer = tf.train.AdamOptimizer()

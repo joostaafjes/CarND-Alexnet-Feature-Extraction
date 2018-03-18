@@ -7,7 +7,7 @@ from sklearn.utils import shuffle
 from alexnet import AlexNet
 
 nb_classes = 43
-epochs = 10
+epochs = 1
 batch_size = 128
 
 with open('./train.p', 'rb') as f:
